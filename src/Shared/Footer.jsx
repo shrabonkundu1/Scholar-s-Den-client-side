@@ -3,7 +3,7 @@ import logo from '../../public/favIcon.jpeg'
 
 const Footer = () => {
   return (
-    <div className="bg-[#f0fafc] text-[16px]">
+    <div className="bg-gradient-to-r from-[#f0fafc] to-white text-[16px]">
       <footer className="footer w-11/12 mx-auto text-base-content p-10">
         <nav className="">
           <h6 className="text-2xl font-Cinzel font-semibold">Scholar's Den</h6>
@@ -47,7 +47,7 @@ const Footer = () => {
       <footer className="footer  w-11/12 mx-auto items-center p-4">
         <aside className="grid-flow-col items-center">
          <img className="w-16 " src={logo} alt="" />
-          <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+          <p> © {new Date().getFullYear()} Scholar's Inc. All rights reserved.</p>
         </aside>
         <nav className="grid-flow-col hidden md:grid gap-4 md:place-self-center md:justify-self-end">
           <a>
