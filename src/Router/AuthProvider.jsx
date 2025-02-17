@@ -43,7 +43,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { app } from "../Firebase/Firebase.config";
-import UseAxiosPublic from "../Hooks/UseAxiosPublic";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const provider = new GoogleAuthProvider();
-  const axiosPublic = UseAxiosPublic();
+  const axiosPublic = useAxiosPublic();
 
   const createUser = async (email, password) => {
     setLoading(true);
@@ -114,43 +114,45 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      console.log(currentUser);
-      setLoading(false);
-    });
-    return () => {
-      return unSubscribe();
-    };
-  }, []);
+  // useEffect(() => {
+  //   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     console.log(currentUser);
+  //     setLoading(false);
+  //   });
+  //   return () => {
+  //     return unSubscribe();
+  //   };
+  // }, []);
 
-  //   useEffect(() => {
-  //     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-  //       setUser(currentUser);
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        setUser(currentUser);
 
-  //       if (currentUser) {
-  //         const userInfo = { email: currentUser.email };
-  //         axiosPublic
-  //           .post("/jwt", userInfo)
-  //           .then((res) => {
-  //             console.log("JWT Response:", res.data); // টোকেন রেসপন্স চেক
-  //             if (res.data.token) {
-  //               localStorage.setItem("access-token", res.data.token)
-  //               console.log("Token saved in localStorage:", res.data.token); // কনফার্মেশন
-  //             }
-  //           })
-  //           .catch((error) => console.error("JWT Error:", error));
-  //       } else {
-  //         localStorage.removeItem("access-token")
-  //       }
+        if (currentUser) {
+          const userInfo = { email: currentUser.email };
+          axiosPublic
+            .post("/jwt", userInfo)
+            .then((res) => {
+              console.log("JWT Response:", res.data);
+              if (res.data.token) {
+                localStorage.setItem("access-token", res.data.token)
+                console.log("Token saved in localStorage:", res.data.token); 
+                setLoading(false);
+              }
+            })
+            .catch((error) => console.error("JWT Error:", error));
+        } else {
+          localStorage.removeItem("access-token");
+          setLoading(false);
+        }
 
-  //       setLoading(false);
-  //       console.log("current user", currentUser);
-  //     });
+       
+        console.log("current user", currentUser);
+      });
 
-  //     return () => unsubscribe();
-  //   }, [axiosPublic]);
+      return () => unsubscribe();
+    }, [axiosPublic]);
   const authInfo = {
     user,
     loading,

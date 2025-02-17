@@ -9,10 +9,13 @@ import loginLottie from '../lottie/Login.json';
 import Lottie from 'react-lottie';
 import Swal from 'sweetalert2';
 import useAuth from '../Hooks/useAuth';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import SocialLogin from './SocialLogin';
 
 const Login = () => {
 
   const {signInUser} = useAuth() ;
+  const [showPassword, setShowPassword] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -98,11 +101,18 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                 type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter password"
                   className="input input-bordered"
                 />
+                 <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className=" absolute right-10 top-[275px]"
+            >
+              {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </button>
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?
@@ -138,7 +148,7 @@ const Login = () => {
               </Link>
             </p>
             <div className="mx-auto w-[90%]">
-              {/* <SocialLogin></SocialLogin> */}
+              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>

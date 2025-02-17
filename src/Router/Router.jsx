@@ -7,6 +7,8 @@ import AllSession from "../Pages/AllSession/AllSession";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Security/Login";
 import Register from "../Security/Register";
+import SessionDetails from "../Pages/SessionDetails/SessionDetails";
+import PrivateRoutes from "./PrivateRoutes";
 
   export const router = createBrowserRouter([
     {
@@ -28,6 +30,10 @@ import Register from "../Security/Register";
         {
             path: "/register",
             element: <Register></Register>
+        },
+        {
+            path: "/studySessions/:id",
+            element: <PrivateRoutes><SessionDetails></SessionDetails></PrivateRoutes>
         },
       ]
     },

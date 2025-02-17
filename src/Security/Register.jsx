@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import UseAxiosPublic from '../Hooks/UseAxiosPublic';
 import Swal from 'sweetalert2';
 import useAuth from '../Hooks/useAuth';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useAxiosPublic from '../Hooks/useAxiosPublic';
+import SocialLogin from './SocialLogin';
 
 const Register = () => {
     const navigate  = useNavigate();
-    const axiosPublic = UseAxiosPublic();
+    const axiosPublic = useAxiosPublic();
+    const [showPassword, setShowPassword] = useState(false);
     const {createUser,updateUserProfile} = useAuth();
     const {
         register,
@@ -30,7 +33,8 @@ const Register = () => {
             // user data post database:
             const userInfo = {
               name : data.name,
-              email: data.email
+              email: data.email,
+              role : data.role
             }
             axiosPublic.post('/users',userInfo)
             .then(res => {
@@ -115,7 +119,7 @@ const Register = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                 type={showPassword ? "text" : "password"}
                   {...register("password", {
                     required: true,
                     minLength: 6,
@@ -125,6 +129,14 @@ const Register = () => {
                   placeholder="Enter password"
                   className="input input-bordered"
                 />
+                 <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className=" absolute right-10 top-[460px]"
+            >
+              {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </button>
+                
                 {errors.password?.type === 'required' && <span className="text-red-600 p-1">Password is required</span>}
                 {errors.password?.type === 'minLength' && <span className="text-red-600 p-1">Password must be 6 character</span>}
                 {errors.password?.type === 'pattern' && <span className="text-red-600 p-1">Password must contain one special character</span>}
@@ -162,7 +174,7 @@ const Register = () => {
               Already registered? Go to <Link className="text-blue-600 font-semibold" to="/login">Login</Link>
             </p>
             <div className='mx-auto w-[90%]'>
-              {/* <SocialLogin></SocialLogin> */}
+              <SocialLogin></SocialLogin>
 
             </div>
           </div>
