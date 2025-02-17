@@ -9,33 +9,34 @@ import { SiSecurityscorecard } from "react-icons/si";
 import { TbLogout2 } from "react-icons/tb";
 import Swal from "sweetalert2";
 import logo from '../../public/favIcon.jpeg'
+import useAuth from "../Hooks/useAuth";
 
 const Navbar = () => {
     const location = useLocation();
     const [activeLink, setActiveLink] = useState(location.pathname);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+    const {user,logOutUser} = useAuth();
     useEffect(() => {
       setActiveLink(location.pathname);
     }, [location.pathname]);
   
-    // const handleLogout = () => {
-    //   logOutUser()
-    //     .then(() => {
-    //       Swal.fire({
-    //         position: "top-end",
-    //         icon: "success",
-    //         title: "Logged out successfully!",
-    //         showConfirmButton: false,
-    //         timer: 1500,
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       toast.error("Logout failed. Please try again.", {
-    //         position: "top-center",
-    //       });
-    //     });
-    // };
+    const handleLogout = () => {
+      logOutUser()
+        .then(() => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Logged out successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((error) => {
+          toast.error("Logout failed. Please try again.", {
+            position: "top-center",
+          });
+        });
+    };
   
     const getLinkStyle = (path) => {
       const isActive = activeLink === path;
@@ -81,13 +82,13 @@ const Navbar = () => {
         </li>
 
         <div className="flex items-center md:space-x-4 md:hidden">
-          {/* {user ? ( */}
+          {user ? (
             <div className="flex items-center gap-3 space-x-2">
-              {/* <img
+              <img
                 src={user.photoURL || "/default-avatar.png"}
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full"
-              /> */}
+              />
               <button
                 className="text-sm text-[#02c39a] font-bold flex items-center gap-1"
               >
@@ -95,8 +96,8 @@ const Navbar = () => {
                 Logout
               </button>
             </div>
-          {/* ) : ( */}
-            {/* <div className=" ">
+          ) : ( 
+            <div className=" ">
               <Link to="/login" className={getLinkStyle("/login")}>
                 <CgLogIn size={19} /> Login
               </Link>
@@ -104,13 +105,13 @@ const Navbar = () => {
                 <SiSecurityscorecard size={19} /> Sign Up
               </Link>
             </div>
-          )} */}
+          )} 
         </div>
-      </ul>
+      </ul> 
     );
   
     return (
-      <nav className="bg-gradient-to-r from-[#f0fafc] to-white">
+      <nav className=" fixed z-20 w-full bg-opacity-40 bg-gradient-to-r from-[#f0fafc] to-white">
         <div className="w-[90%] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -125,36 +126,35 @@ const Navbar = () => {
               </Link>
             </div>
   
-            {/* Navigation Links */}
             <div className="hidden md:flex">{links}</div>
+            
   
-            {/* User Actions */}
             <div className="md:flex hidden items-center space-x-4">
-              {/* {user ? ( */}
+          {user ? (
                 <div className="flex items-center gap-3 space-x-2">
-                  {/* <img
+                  <img
                     src={user.photoURL || "/default-avatar.png"}
                     alt="User Avatar"
                     className="w-10 h-10 rounded-full"
-                  /> */}
+                  />
                   <button
-                    // onClick={handleLogout}
+                    onClick={handleLogout}
                     className="text-sm text-[#2ec4b6] font-bold flex items-center gap-1 border hover:text-white border-[#2ec4b6] p-3 rounded-md hover:bg-gradient-to-r hover:from-[#2ec4b6] hover:to-[#6feccb]"
                   >
                     <TbLogout2 size={19} />
                     Logout
                   </button>
                 </div>
-              {/* ) : ( */}
-                {/* <div className="flex items-center space-x-4">
+              ) : (
+                <div className="flex items-center space-x-4">
                   <Link to="/login" className={getLinkStyle("/login")}>
                     <CgLogIn size={19} /> Login
                   </Link>
-                  <Link to="/signUp" className={getLinkStyle("/signUp")}>
+                  <Link to="/register" className={getLinkStyle("/register")}>
                     <SiSecurityscorecard size={19} /> Sign Up
                   </Link>
                 </div>
-              )} */}
+              )}
             </div>
   
             {/* Mobile Menu Toggle */}
