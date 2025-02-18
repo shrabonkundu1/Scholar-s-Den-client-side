@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Dashboard = () => {
+const ManageMaterials = () => {
     return (
         <div>
-            Dashboard
+            
         </div>
     );
 };
 
-export default Dashboard;
+export default ManageMaterials;

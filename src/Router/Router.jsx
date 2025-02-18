@@ -4,11 +4,11 @@ import {
 import MainLayouts from "../Layouts/MainLayouts";
 import Home from "../Pages/Home/Home";
 import AllSession from "../Pages/AllSession/AllSession";
-import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Security/Login";
 import Register from "../Security/Register";
 import SessionDetails from "../Pages/SessionDetails/SessionDetails";
 import PrivateRoutes from "./PrivateRoutes";
+import Dashboard from "../Layouts/Dashboard";
 
   export const router = createBrowserRouter([
     {
@@ -39,6 +39,13 @@ import PrivateRoutes from "./PrivateRoutes";
     },
     {
       path: "/dashboard",
-      element: <Dashboard></Dashboard>
+      element: <Dashboard></Dashboard>,
+      children: [
+        // Only Admin routes:
+        {
+          path: "/adminHome",
+          
+        }
+      ]
     }
   ]);

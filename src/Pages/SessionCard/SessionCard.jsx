@@ -36,7 +36,7 @@ const SessionCard = ({ session }) => {
         <button className="px-6 py-3 rounded-md bg-gradient-to-r from-[#2ec4b6] to-[#6feccb] text-black">
             {checkRegistrationStatus(registrationStartDate, registrationEndDate)}
           </button>
-          <Link to={`/studySessions/${_id}`}><button className="btn rounded-md ">Read More</button> </Link>
+          <Link to={`/studySessions/${_id} `}><button className="btn rounded-md ">Read More</button> </Link>
         </div>
       </div>
     </div>
