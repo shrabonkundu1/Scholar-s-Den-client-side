@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AdminHome = () => {
+const AddMaterials = () => {
     return (
         <div>
-            Admin HOmne
+            Add Materials
         </div>
     );
 };
 
-export default AdminHome;
+export default AddMaterials;

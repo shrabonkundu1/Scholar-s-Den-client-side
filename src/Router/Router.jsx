@@ -9,6 +9,19 @@ import Register from "../Security/Register";
 import SessionDetails from "../Pages/SessionDetails/SessionDetails";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../Layouts/Dashboard";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
+import ManageMaterials from "../Pages/Dashboard/Admin/ManageMaterials";
+import ManageSessions from "../Pages/Dashboard/Admin/ManageSessions";
+import AddMaterials from "../Pages/Dashboard/Tutor/AddMaterials";
+import TutorHome from "../Pages/Dashboard/Tutor/TutorHome";
+import ViewMaterials from "../Pages/Dashboard/Tutor/ViewMaterials";
+import CreateSessions from "../Pages/Dashboard/Tutor/CreateSessions";
+import ViewSessions from "../Pages/Dashboard/Tutor/ViewSessions";
+import BookSession from "../Pages/Dashboard/User/BookSession";
+import ManageNotes from "../Pages/Dashboard/User/ManageNotes";
+import Notes from "../Pages/Dashboard/User/Notes";
+import UserHome from "../Pages/Dashboard/User/UserHome";
 
   export const router = createBrowserRouter([
     {
@@ -38,14 +51,70 @@ import Dashboard from "../Layouts/Dashboard";
       ]
     },
     {
-      path: "/dashboard",
+      path: "dashboard",
       element: <Dashboard></Dashboard>,
       children: [
         // Only Admin routes:
         {
-          path: "/adminHome",
-          
-        }
+          path: "adminHome",
+          element: <AdminHome></AdminHome>,
+        },
+        {
+          path: "users",
+          element: <AllUsers></AllUsers>,
+        },
+        {
+          path: "manageMaterials",
+          element: <ManageMaterials></ManageMaterials>,
+        },
+        {
+          path: "manageUsers",
+          element: <ManageSessions></ManageSessions>,
+        },
+
+        // Tutor routes:
+        {
+          path: "addMaterials",
+          element: <AddMaterials></AddMaterials>
+        },
+        {
+          path: "tutorHome",
+          element: <TutorHome></TutorHome>
+        },
+        {
+          path: "viewMaterials",
+          element: <ViewMaterials></ViewMaterials>,
+        },
+        {
+          path: "createSession",
+          element: <CreateSessions></CreateSessions>
+        },
+        {
+          path: "viewSessions",
+          element: <ViewSessions></ViewSessions>
+        },
+
+        // users routes:
+        {
+          path: "userHome",
+          element: <UserHome></UserHome>
+        },
+        {
+          path: "createNote",
+          element: <Notes></Notes>
+        },
+        {
+          path: "manageNotes",
+          element: <ManageNotes></ManageNotes>
+        },
+        {
+          path: "bookedSessions",
+          element: <BookSession></BookSession>
+        },
+        {
+          path: "viewMaterials",
+          element: <ViewMaterials></ViewMaterials>
+        },
       ]
     }
   ]);

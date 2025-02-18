@@ -47,10 +47,14 @@ const isTutor = true;
 //   mobile view
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // const handleSidebarToggle = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
   const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(!isSidebarOpen);
+    }
   };
-
   return (
     <div className="flex">
       {/* Mobile Sidebar Toggle Button */}
@@ -65,7 +69,7 @@ const isTutor = true;
       <div
         className={`${
           isSidebarOpen ? "block" : "hidden"
-        } md:block w-64 bg-green-100 min-h-screen p-4 fixed top-0 left-0 z-40`}
+        }md:block  w-64 bg-green-100 min-h-screen `}
       >
         <div className="py-10">
           <p className="md:pl-5 text-2xl font-Cinzel font-bold">Scholar's Den</p>
@@ -74,7 +78,7 @@ const isTutor = true;
           {isAdmin
             ? adminLinks.map((link, index) => (
                 <li className="text-[16px] " key={index}>
-                  <NavLink to={link.to}>
+                  <NavLink to={link.to} onClick={handleSidebarToggle}>
                     {link.icon} {link.label}
                   </NavLink>
                 </li>
@@ -82,14 +86,14 @@ const isTutor = true;
             : isTutor
             ? tutorLinks.map((link, index) => (
                 <li className="text-[18px] font-medium" key={index}>
-                  <NavLink to={link.to}>
+                  <NavLink to={link.to} onClick={handleSidebarToggle}>
                     {link.icon} {link.label}
                   </NavLink>
                 </li>
               ))
             : userLinks.map((link, index) => (
                 <li className="text-[18px] font-medium" key={index}>
-                  <NavLink to={link.to}>
+                  <NavLink to={link.to} onClick={handleSidebarToggle}>
                     {link.icon} {link.label}
                   </NavLink>
                 </li>
@@ -108,7 +112,7 @@ const isTutor = true;
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 bg-slate-100 ml-64 md:ml-0">
+      <div className="flex-1 bg-slate-100  mt-20  md:mt-0">
         <Outlet />
       </div>
     </div>
