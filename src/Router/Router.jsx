@@ -68,7 +68,7 @@ import UserHome from "../Pages/Dashboard/User/UserHome";
           element: <ManageMaterials></ManageMaterials>,
         },
         {
-          path: "manageUsers",
+          path: "manageSessions",
           element: <ManageSessions></ManageSessions>,
         },
 

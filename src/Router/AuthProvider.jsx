@@ -134,10 +134,10 @@ const AuthProvider = ({ children }) => {
           axiosPublic
             .post("/jwt", userInfo)
             .then((res) => {
-              console.log("JWT Response:", res.data);
+              // console.log("JWT Response:", res.data);
               if (res.data.token) {
                 localStorage.setItem("access-token", res.data.token)
-                console.log("Token saved in localStorage:", res.data.token); 
+                // console.log("Token saved in localStorage:", res.data.token); 
                 setLoading(false);
               }
             })
@@ -148,7 +148,7 @@ const AuthProvider = ({ children }) => {
         }
 
        
-        console.log("current user", currentUser);
+        // console.log("current user", currentUser);
       });
 
       return () => unsubscribe();
