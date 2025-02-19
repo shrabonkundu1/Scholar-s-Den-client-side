@@ -18,10 +18,10 @@ import DashboardRedirect from "../Pages/Dashboard/DashboardRedirect/DashboardRed
 
 const Dashboard = () => {
   //   const [isAdmin] = UseAdmin();
-  // const isAdmin = true;
-  const isAdmin = false;
-  const isTutor = true;
-  // const isTutor = false;
+  const isAdmin = true;
+  // const isAdmin = false;
+  // const isTutor = true;
+  const isTutor = false;
   //   const [isTutor] = useTutor();
 
   const commonLinks = [{ to: "/", label: "Home", icon: <FaHome /> }];
