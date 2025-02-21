@@ -318,6 +318,7 @@
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/UseAxiosSecure"; 
 import useAuth from "../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const ViewSessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -347,11 +348,27 @@ const ViewSessions = () => {
   }, [user?.email]);
 
   // Resend approval request for rejected sessions
+  // const handleResendRequest = (sessionId) => {
+  //   axiosSecure
+  //     .post(`/studySessions/resend/${sessionId}`)
+  //     .then((response) => {
+  //       toast.success(response.data.message);
+  //       setSessions((prevSessions) =>
+  //         prevSessions.map((session) =>
+  //           session._id === sessionId ? { ...session, status: "pending" } : session
+  //         )
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error resending request:", error);
+  //       toast.error("Failed to resend request.");
+  //     });
+  // };
   const handleResendRequest = (sessionId) => {
     axiosSecure
-      .post(`/studySessions/resend/${sessionId}`)
+      .patch(`/studySessions/resend/${sessionId}`)
       .then((response) => {
-        alert(response.data.message);
+        toast.success(response.data.message);
         setSessions((prevSessions) =>
           prevSessions.map((session) =>
             session._id === sessionId ? { ...session, status: "pending" } : session
@@ -360,10 +377,9 @@ const ViewSessions = () => {
       })
       .catch((error) => {
         console.error("Error resending request:", error);
-        alert("Failed to resend request.");
+        toast.error("Failed to resend request.");
       });
-  };
-
+};
   if (loading) {
     return (
       <div className="flex justify-center items-center mt-72">
