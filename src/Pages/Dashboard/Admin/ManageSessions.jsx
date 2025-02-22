@@ -83,10 +83,10 @@ const ManageSessions = () => {
 
     return (
         <div>
-            <h2 className="text-4xl font-Cinzel text-center my-16 font-semibold">Pending Study Sessions</h2>
+            <h2 className="text-2xl md:text-4xl font-Cinzel text-center my-16 font-semibold">Pending Study Sessions</h2>
 
 
-             <div className="overflow-x-auto my-8 mx-16">
+             <div className="overflow-x-auto my-8 md:mx-16">
                       <table className="table-auto w-full border border-gray-300 rounded-lg overflow-hidden">
                         {/* head */}
                         <thead className="bg-[#6feccb] text-white text-left uppercase">
@@ -125,25 +125,6 @@ const ManageSessions = () => {
                         </tbody>
                       </table>
                     </div>
-
-{/* 
-            {sessions.map((session) => (
-                <div key={session._id} className="p-4 border">
-                    <h3>{session.sessionTitle}</h3>
-                    <button
-                        onClick={() => handleApprove(session)}
-                        className="bg-green-500 text-white px-4 py-1"
-                    >
-                        Approve
-                    </button>
-                    <button
-                        onClick={() => handleReject(session._id)}
-                        className="bg-red-500 text-white px-4 py-1 ml-2"
-                    >
-                        Reject
-                    </button>
-                </div>
-            ))} */}
         </div>
     );
 };

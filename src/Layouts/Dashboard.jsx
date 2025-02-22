@@ -55,11 +55,11 @@ const Dashboard = () => {
       label: "View Sessions",
       icon: <RiSearchEyeLine />,
     },
-    {
-      to: "/dashboard/addMaterials",
-      label: "Add Materials",
-      icon: <TbUpload />,
-    },
+    // {
+    //   to: "/dashboard/addMaterials",
+    //   label: "Add Materials",
+    //   icon: <TbUpload />,
+    // },
     {
       to: "/dashboard/viewMaterials",
       label: "View Materials",

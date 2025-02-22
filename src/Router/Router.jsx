@@ -22,6 +22,7 @@ import BookSession from "../Pages/Dashboard/User/BookSession";
 import ManageNotes from "../Pages/Dashboard/User/ManageNotes";
 import Notes from "../Pages/Dashboard/User/Notes";
 import UserHome from "../Pages/Dashboard/User/UserHome";
+import UpdateMaterial from "../Pages/Dashboard/Tutor/UpdateMaterial";
 
   export const router = createBrowserRouter([
     {
@@ -76,6 +77,10 @@ import UserHome from "../Pages/Dashboard/User/UserHome";
         {
           path: "addMaterials",
           element: <AddMaterials></AddMaterials>
+        },
+        {
+          path: "updateMaterial/:id",
+          element: <UpdateMaterial></UpdateMaterial>
         },
         {
           path: "tutorHome",
