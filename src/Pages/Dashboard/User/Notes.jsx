@@ -11,7 +11,7 @@ const Notes = () => {
   
     const onSubmit = async (data) => {
       try {
-        const response = await axiosPublic.post("/createNote", data);
+        const response = await axiosPublic.post("/notes", data);
         Swal.fire({
             position: "top-end",
             icon: "success",
@@ -26,8 +26,8 @@ const Notes = () => {
       }
     };
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg my-16">
-        <h2 className="text-xl font-bold mb-4">Create New Note</h2>
+        <div className="max-w-xl mx-auto px-10 p-6 bg-green-300 shadow-lg rounded-lg my-16">
+        <h2 className="text-3xl font-semibold font-Cinzel text-center my-16">Create New Note</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}
           <input
@@ -56,7 +56,7 @@ const Notes = () => {
           {errors.description && <p className="text-red-500">{errors.description.message}</p>}
   
           {/* Submit Button */}
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button type="submit" className="px-4 py-2 bg-white text-green-400 font-semibold hover:scale-105 rounded">
            Submit
           </button>
         </form>
