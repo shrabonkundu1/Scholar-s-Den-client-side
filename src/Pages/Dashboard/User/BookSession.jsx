@@ -4,7 +4,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
 
 const BookSession = () => {
-    const {user} = useAuth()
+    const {user,loading} = useAuth()
     const [sessions, setSessions] = useState([]);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic()
@@ -17,6 +17,16 @@ const BookSession = () => {
       .then((res) => setSessions(res.data))
       .catch((error) => console.error("Error fetching sessions:", error));
   }, [studentEmail, axiosPublic]);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-72">
+        <span className="loading loading-ring loading-xs"></span>
+        <span className="loading loading-ring loading-sm"></span>
+        <span className="loading loading-ring loading-md"></span>
+        <span className="loading loading-ring loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">

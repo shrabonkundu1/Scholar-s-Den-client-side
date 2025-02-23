@@ -4,15 +4,27 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import SessionCard from '../SessionCard/SessionCard';
 
 const StudySession = () => {
+    const [loading,setLoading] = useState(true)
+
     const axiosPublic = useAxiosPublic();
     const [sessions,setSessions] = useState([]);
     useEffect(() => {
         axiosPublic.get('/studySessions')
         .then(res => {
             setSessions(res.data);
+            setLoading(false)
         })
     },[]);
-
+    if (loading) {
+        return (
+          <div className="flex justify-center items-center mt-72">
+            <span className="loading loading-ring loading-xs"></span>
+            <span className="loading loading-ring loading-sm"></span>
+            <span className="loading loading-ring loading-md"></span>
+            <span className="loading loading-ring loading-lg"></span>
+          </div>
+        );
+      }
     return (
         <div>
             <h2 className='text-5xl font-semibold text-center font-Cinzel'>Study Session</h2>

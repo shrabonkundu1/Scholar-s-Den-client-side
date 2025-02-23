@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 const ViewMaterials = () => {
   const { user } = useAuth();
+  const [loading,setLoading] = useState(true)
   const [materials, setMaterials] = useState([]);
   const axiosSecure = useAxiosSecure();
 console.log(materials)
@@ -15,6 +16,7 @@ console.log(materials)
     if (!user?.email) return;
     axiosSecure.get(`/materials/${user.email}`).then((res) => {
       setMaterials(res.data);
+      setLoading(false)
     });
   }, [user?.email]);
 
@@ -43,7 +45,16 @@ console.log(materials)
     });
   };
  
-
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-72">
+        <span className="loading loading-ring loading-xs"></span>
+        <span className="loading loading-ring loading-sm"></span>
+        <span className="loading loading-ring loading-md"></span>
+        <span className="loading loading-ring loading-lg"></span>
+      </div>
+    );
+  }
   return (
     <div className="w-[90%] mx-auto my-10">
       <h2 className="text-4xl font-semibold font-Cinzel text-center my-16 ">Your Uploaded Materials</h2>
