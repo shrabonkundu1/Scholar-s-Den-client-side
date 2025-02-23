@@ -35,7 +35,7 @@ const Login = () => {
     console.log(email, password);
 
     try {
-      const result = await signInUser(email, password); // use await here
+      const result = await signInUser(email, password); 
       const user = result.user;
       Swal.fire({
         title: "Login Successfully!",

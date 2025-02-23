@@ -17,11 +17,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import DashboardRedirect from "../Pages/Dashboard/DashboardRedirect/DashboardRedirect";
 
 const Dashboard = () => {
-  //   const [isAdmin] = UseAdmin();
-  const isAdmin = true;
+    const [isAdmin] = UseAdmin();
+    const [isTutor] = useTutor()
+  // const isAdmin = true;
   // const isAdmin = false;
   // const isTutor = true;
-  const isTutor = false;
+  // const isTutor = false;
   //   const [isTutor] = useTutor();
 
   const commonLinks = [{ to: "/", label: "Home", icon: <FaHome /> }];
