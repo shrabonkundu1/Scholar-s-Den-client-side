@@ -15,6 +15,7 @@ import UseAdmin from "../Hooks/UseAdmin";
 import useTutor from "../Hooks/useTutor";
 import { GiHamburgerMenu } from "react-icons/gi";
 import DashboardRedirect from "../Pages/Dashboard/DashboardRedirect/DashboardRedirect";
+import useAuth from "../Hooks/useAuth";
 
 const Dashboard = () => {
     const [isAdmin] = UseAdmin();
@@ -24,6 +25,8 @@ const Dashboard = () => {
   // const isTutor = true;
   // const isTutor = false;
   //   const [isTutor] = useTutor();
+  const {user} = useAuth();
+  const studentEmail = user?.email; 
 
   const commonLinks = [{ to: "/", label: "Home", icon: <FaHome /> }];
 
@@ -72,7 +75,7 @@ const Dashboard = () => {
   const userLinks = [
     { to: "/dashboard/userHome", label: "User Home", icon: <FaHome /> },
     {
-      to: "/dashboard/bookedSessions",
+      to: `/dashboard/bookedSessions/${studentEmail}`,
       label: "Booked Sessions",
       icon: <FaBook />,
     },

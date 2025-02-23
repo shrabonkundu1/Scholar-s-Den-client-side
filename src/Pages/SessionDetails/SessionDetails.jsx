@@ -237,7 +237,7 @@ const SessionDetails = () => {
     };
 
     try {
-      const { data } = await axiosPublic.post("/bookSession", bookingData);
+      const { data } = await axiosPublic.post("/bookedSessions", bookingData);
 
       if (data.insertedId) {
         Swal.fire({
