@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 const useUser = () => {
 
     const { user } = useAuth(); 
-    console.log(user?.email)
     const axiosSecure = useAxiosSecure();
     const { data: userData, isPending, refetch } = useQuery({
         queryKey: ['user', user?.email],

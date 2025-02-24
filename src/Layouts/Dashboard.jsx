@@ -86,7 +86,7 @@ const Dashboard = () => {
     },
     { to: "/dashboard/manageNotes", label: "Manage Notes", icon: <FaList /> },
     {
-      to: "/dashboard/viewMaterials",
+      to: "/dashboard/viewStudyMaterials",
       label: "View Study Materials",
       icon: <FaStreetView />,
     },

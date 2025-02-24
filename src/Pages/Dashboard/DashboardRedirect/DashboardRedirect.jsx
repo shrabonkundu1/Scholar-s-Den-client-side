@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 const DashboardRedirect = () => {
     const { userData, isPending } = useUser();
-    console.log(userData,isPending)
     const navigate = useNavigate();
     useEffect(() => {
         if (!isPending && userData?.role) {

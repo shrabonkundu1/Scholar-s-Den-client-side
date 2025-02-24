@@ -11,7 +11,6 @@ const useTutor = () => {
         queryKey: [user?.email, 'isTutor'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/tutor/${user.email}`);
-            console.log(res.data);
             return res.data.tutor; 
         }
     });

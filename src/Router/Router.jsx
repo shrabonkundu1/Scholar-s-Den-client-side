@@ -24,6 +24,7 @@ import Notes from "../Pages/Dashboard/User/Notes";
 import UserHome from "../Pages/Dashboard/User/UserHome";
 import UpdateMaterial from "../Pages/Dashboard/Tutor/UpdateMaterial";
 import BookedSessionDetails from "../Pages/Dashboard/User/BookedSessionDetails";
+import ViewStudyMaterials from "../Pages/Dashboard/User/ViewStudyMaterials";
 
   export const router = createBrowserRouter([
     {
@@ -118,7 +119,7 @@ import BookedSessionDetails from "../Pages/Dashboard/User/BookedSessionDetails";
           element: <BookSession></BookSession>
         },
         {
-          path: "studySessions/:id",
+          path: "bookStudySessions/:id",
           element: <BookedSessionDetails></BookedSessionDetails>
         },
         // {
@@ -126,8 +127,8 @@ import BookedSessionDetails from "../Pages/Dashboard/User/BookedSessionDetails";
         //   element: <BookedSessionDetails></BookedSessionDetails>
         // },
         {
-          path: "viewMaterials",
-          element: <ViewMaterials></ViewMaterials>
+          path: "viewStudyMaterials/:id",
+          element: <ViewStudyMaterials></ViewStudyMaterials>
         },
       ]
     }
