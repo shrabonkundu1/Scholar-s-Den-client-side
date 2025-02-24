@@ -74,10 +74,10 @@ const SessionDetails = () => {
 
     const bookingData = {
       studentEmail: user.email,
-      sessionId: sessions._id,
-      sessionTitle: sessions.sessionTitle,
-      tutorName: sessions.tutorName,
-      sessionDuration: sessions.sessionDuration,
+      sessionId: sessions.session._id,
+      sessionTitle: sessions.session.sessionTitle,
+      tutorName: sessions.session.tutorName,
+      sessionDuration: sessions.session.sessionDuration,
     };
 
     try {

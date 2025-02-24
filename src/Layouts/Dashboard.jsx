@@ -85,11 +85,7 @@ const Dashboard = () => {
       icon: <FaNotesMedical />,
     },
     { to: "/dashboard/manageNotes", label: "Manage Notes", icon: <FaList /> },
-    {
-      to: "/dashboard/viewStudyMaterials",
-      label: "View Study Materials",
-      icon: <FaStreetView />,
-    },
+    
   ];
 
   //   mobile view
