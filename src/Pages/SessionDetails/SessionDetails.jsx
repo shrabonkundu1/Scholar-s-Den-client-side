@@ -109,15 +109,14 @@ const SessionDetails = () => {
   const {
     sessionTitle,
     tutorName,
-    averageRating,
     sessionDescription,
     registrationStartDate,
     classEndDate,
     classStartTime,
     registrationEndDate,
-    registrationFee,
     sessionDuration,
     status,
+    price
   } = data;
 
   const currentUser = users.find((u) => u.email === user?.email) || {};
@@ -133,10 +132,16 @@ const SessionDetails = () => {
         {sessionTitle}
       </h2>
       <div className="w-3/4 mx-auto text-xl font-medium space-y-6">
-        <h2>Title : {sessionTitle}</h2>
         <p>
           Description : <span className="font-light">{sessionDescription}</span>
         </p>
+        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
+        <h2>Title : {sessionTitle}</h2>
+        
+        <p>
+          Session Status : <span className="font-light">{status}</span>
+        </p>
+      </div>
         <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
           <p>
             Tutor : <span>{tutorName}</span>
@@ -164,18 +169,11 @@ const SessionDetails = () => {
             Class Ends : <span className="font-light">{classEndDate}</span>
           </p>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
-          <p>
-            Average Rating : <span className="font-light">{averageRating}</span>
-          </p>
-          <p>
-            Session Status : <span className="font-light">{status}</span>
-          </p>
-        </div>
+       
         <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
           <p>
             Registration Fee :{" "}
-            <span className="font-light">{registrationFee}</span>
+            <span className="font-light">${price}</span>
           </p>
           <button
             onClick={handleBookSession}

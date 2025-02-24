@@ -25,6 +25,7 @@ import UserHome from "../Pages/Dashboard/User/UserHome";
 import UpdateMaterial from "../Pages/Dashboard/Tutor/UpdateMaterial";
 import BookedSessionDetails from "../Pages/Dashboard/User/BookedSessionDetails";
 import ViewStudyMaterials from "../Pages/Dashboard/User/ViewStudyMaterials";
+import ManageApprovedSessions from "../Pages/Dashboard/Admin/ManageApprovedSessions";
 
   export const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ import ViewStudyMaterials from "../Pages/Dashboard/User/ViewStudyMaterials";
         {
           path: "manageSessions",
           element: <ManageSessions></ManageSessions>,
+        },
+        {
+          path: "manageApprovedSessions",
+          element: <ManageApprovedSessions></ManageApprovedSessions>,
         },
 
         // Tutor routes:

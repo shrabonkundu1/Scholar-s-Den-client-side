@@ -35,12 +35,17 @@ const Dashboard = () => {
     { to: "/dashboard/adminHome", label: "Admin Home", icon: <FaHome /> },
     {
       to: "/dashboard/manageSessions",
-      label: "Manage Sessions",
+      label: "View All Sessions",
       icon: <FaList />,
     },
     {
       to: "/dashboard/manageMaterials",
-      label: "Manage Materials",
+      label: "View All Materials",
+      icon: <FaList />,
+    },
+    {
+      to: "/dashboard/manageApprovedSessions",
+      label: "All Approved Session",
       icon: <FaList />,
     },
     { to: "/dashboard/users", label: "Manage Users", icon: <FaUsers /> },
