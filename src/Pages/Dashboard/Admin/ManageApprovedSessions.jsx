@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageApprovedSessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -37,9 +37,9 @@ const ManageApprovedSessions = () => {
 
   const handleUpdate = async (session) => {
     const result = await Swal.fire({
-      title: "Update Session Price",
+      title: "Update Session amount",
       input: "number",
-      inputValue: session.price || 0,
+      inputValue: session.amount || 0,
       inputAttributes: { min: 0 },
       showCancelButton: true,
     });
@@ -47,27 +47,27 @@ const ManageApprovedSessions = () => {
     if (result.isConfirmed) {
       axiosSecure
         .patch(`/admin/updateSession/${session._id}`, {
-          price: Number(result.value),
+          amount: Number(result.value),
         })
         .then((res) => {
           if (res.data.modifiedCount > 0) {
             setSessions(
               sessions.map((s) =>
                 s._id === session._id
-                  ? { ...s, price: Number(result.value) }
+                  ? { ...s, amount: Number(result.value) }
                   : s
               )
             );
             Swal.fire(
               "Updated!",
-              "Session price updated successfully.",
+              "Session amount updated successfully.",
               "success"
             );
           }
         })
         .catch((err) => {
           console.error("Error updating session:", err);
-          Swal.fire("Error!", "Failed to update price.", "error");
+          Swal.fire("Error!", "Failed to update amount.", "error");
         });
     }
   };

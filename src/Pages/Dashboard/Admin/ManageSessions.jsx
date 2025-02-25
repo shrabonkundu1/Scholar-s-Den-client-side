@@ -2,11 +2,16 @@
 
 
 import React, { useEffect, useState } from "react";
-import useAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageSessions = () => {
     const [sessions, setSessions] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedSessionId, setSelectedSessionId] = useState(null);
+    const [rejectionReason, setRejectionReason] = useState("");
+    const [feedback, setFeedback] = useState("");
+
     const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
@@ -32,7 +37,7 @@ const ManageSessions = () => {
             if (result.isConfirmed) {
                 const isPaid = result.value;
                 let amount = 0;
-                
+
                 if (isPaid) {
                     Swal.fire({
                         title: "Enter Amount",
@@ -63,68 +68,101 @@ const ManageSessions = () => {
     };
 
     const handleReject = (id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, reject it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.patch(`/admin/allSessions/reject/${id}`).then(() => {
-                    setSessions(sessions.filter((session) => session._id !== id));
-                    Swal.fire("Rejected!", "The session has been rejected.", "success");
-                }).catch((err) => console.error(err));
-            }
-        });
+        setSelectedSessionId(id);
+        setShowModal(true);
+    };
+
+    const handleConfirmReject = () => {
+        if (!rejectionReason || !feedback) {
+            alert("Both rejection reason and feedback are required!");
+            return;
+        }
+
+        axiosSecure
+            .patch(`/admin/allSessions/reject/${selectedSessionId}`, { rejectionReason, feedback })
+            .then(() => {
+                setSessions((prevSessions) => prevSessions.filter((session) => session._id !== selectedSessionId));
+                setShowModal(false);
+                Swal.fire("Rejected!", "The session has been rejected.", "success");
+            })
+            .catch((err) => console.error("Error Rejecting Session:", err));
     };
 
     return (
         <div>
             <h2 className="text-2xl md:text-4xl font-Cinzel text-center my-16 font-semibold">Pending Study Sessions</h2>
 
-
-             <div className="overflow-x-auto my-8 md:mx-16">
-                      <table className="table-auto w-full border border-gray-300 rounded-lg overflow-hidden">
-                        {/* head */}
-                        <thead className="bg-[#6feccb] text-white text-left uppercase">
-                          <tr className="rounded-t-xl">
-                            <th className="px-6 py-4 rounded-tl-lg">#</th>
+            <div className="overflow-x-auto my-8 md:mx-16">
+                <table className="table-auto w-full border border-gray-300 rounded-lg overflow-hidden">
+                    <thead className="bg-[#6feccb] text-white text-left uppercase">
+                        <tr>
+                            <th className="px-6 py-4">#</th>
                             <th className="px-6 py-4">Session Title</th>
                             <th className="px-6 py-4">Tutor Email</th>
-                            <th className="px-6 py-4 rounded-tr-lg">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                          {sessions.map((session, index) => (
+                            <th className="px-6 py-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                        {sessions.map((session, index) => (
                             <tr key={session._id} className="hover:bg-gray-100">
-                              <th className="px-6 py-4">{index + 1}</th>
-                              <td className="px-6 py-4">
-                                <p>{session.sessionTitle}</p>
-                              </td>
-                              <td className="px-6 py-4">{session.tutorEmail}</td>
-                              
-                              <td className="px-6 py-4">
-                              <button
-                        onClick={() => handleApprove(session)}
-                        className="border-[#6feccb] hover:bg-[#5bf0c8] border hover:text-white px-4 py-1 rounded-full"
-                    >
-                        Approve
-                    </button>
-                    <button
-                        onClick={() => handleReject(session._id)}
-                        className="border-red-500 border hover:bg-red-500 hover:text-white px-4 py-1 ml-2 rounded-full"
-                    >
-                        Reject
-                    </button>
-                              </td>
+                                <th className="px-6 py-4">{index + 1}</th>
+                                <td className="px-6 py-4">{session.sessionTitle}</td>
+                                <td className="px-6 py-4">{session.tutorEmail}</td>
+                                <td className="px-6 py-4">
+                                    <button
+                                        onClick={() => handleApprove(session)}
+                                        className="border-[#6feccb] hover:bg-[#5bf0c8] border hover:text-white px-4 py-1 rounded-full"
+                                    >
+                                        Approve
+                                    </button>
+                                    <button
+                                        onClick={() => handleReject(session._id)}
+                                        className="border-red-500 border hover:bg-red-500 hover:text-white px-4 py-1 ml-2 rounded-full"
+                                    >
+                                        Reject
+                                    </button>
+                                </td>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Reject Modal */}
+            {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                        <h3 className="text-xl font-semibold mb-4">Reject Study Session</h3>
+                        <label className="block mb-2 text-gray-700">Rejection Reason</label>
+                        <input
+                            type="text"
+                            value={rejectionReason}
+                            onChange={(e) => setRejectionReason(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-3"
+                        />
+                        <label className="block mb-2 text-gray-700">Feedback for Tutor</label>
+                        <textarea
+                            value={feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4"
+                        />
+                        <div className="flex justify-end">
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 bg-gray-400 text-white rounded-lg mr-2"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleConfirmReject}
+                                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                            >
+                                Confirm Reject
+                            </button>
+                        </div>
                     </div>
+                </div>
+            )}
         </div>
     );
 };

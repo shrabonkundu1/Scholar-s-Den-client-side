@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
-import useAxiosSecure from "../../Hooks/UseAxiosSecure";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -113,7 +113,8 @@ const SessionDetails = () => {
     registrationEndDate,
     sessionDuration,
     status,
-    price
+    price,
+    amount
   } = data;
 
   const currentUser = users.find((u) => u.email === user?.email) || {};
@@ -170,7 +171,7 @@ const SessionDetails = () => {
         <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
           <p>
             Registration Fee :{" "}
-            <span className="font-light">${price}</span>
+            <span className="font-light">${amount}</span>
           </p>
           <button
             onClick={handleBookSession}
