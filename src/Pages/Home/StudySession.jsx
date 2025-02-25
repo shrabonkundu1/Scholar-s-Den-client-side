@@ -2,20 +2,30 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import SessionCard from '../SessionCard/SessionCard';
+import { useQuery } from '@tanstack/react-query';
 
 const StudySession = () => {
-    const [loading,setLoading] = useState(true)
+    // const [loading,setLoading] = useState(true)
 
     const axiosPublic = useAxiosPublic();
-    const [sessions,setSessions] = useState([]);
-    useEffect(() => {
-        axiosPublic.get('/studySessions')
-        .then(res => {
-            setSessions(res.data);
-            setLoading(false)
-        })
-    },[]);
-    if (loading) {
+    // const [sessions,setSessions] = useState([]);
+    // useEffect(() => {
+    //     axiosPublic.get('/studySessions')
+    //     .then(res => {
+    //         setSessions(res.data);
+    //         setLoading(false)
+    //     })
+    // },[]);
+    
+    const { data: sessions = [] , isLoading} = useQuery({
+        queryKey: ["studySessions"], 
+        queryFn: async () => {
+          const res = await axiosPublic.get('/studySessions');
+          return res.data;
+        },
+      });
+      
+    if (isLoading) {
         return (
           <div className="flex justify-center items-center mt-72">
             <span className="loading loading-ring loading-xs"></span>

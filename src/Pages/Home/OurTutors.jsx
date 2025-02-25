@@ -2,16 +2,22 @@ import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import TutorCards from './TutorCards';
 import Marquee from 'react-fast-marquee';
+import { useQuery } from '@tanstack/react-query';
 
 const OurTutors = () => {
     const axiosPublic = useAxiosPublic();
-    const [tutors,setTutors] = useState([]);
-    useEffect(() => {
-        axiosPublic.get('/tutors')
-        .then(res => {
-            setTutors(res.data)
-        })
-    },[])
+  
+
+    const { data: tutors = [] } = useQuery({
+        queryKey: ["tutors"], 
+        queryFn: async () => {
+          const res = await axiosPublic.get('/tutors');
+          return res.data;
+        },
+      });
+      
+    
+    
     return (
         <div>
             <h2 className='md:text-5xl text-3xl font-semibold text-center font-Cinzel'>Our Tutuors</h2>

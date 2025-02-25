@@ -1,7 +1,7 @@
 
 import React from "react";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth"; 

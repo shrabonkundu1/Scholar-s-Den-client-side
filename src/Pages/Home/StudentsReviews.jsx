@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Rating } from "@smastrom/react-rating";
 
@@ -11,14 +10,19 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { FaQuoteLeft } from "react-icons/fa";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 const StudentsReviews = () => {
     const axiosPublic =useAxiosPublic()
-    const [reviews, setReviews] = useState([]);
-    useEffect(() => {
-      axiosPublic.get("/testimonials").then((res) => {
-        setReviews(res.data);
+    
+    
+    const { data: reviews = [] } = useQuery({
+        queryKey: ["testimonials"], 
+        queryFn: async () => {
+          const res = await axiosPublic.get('/testimonials');
+          return res.data;
+        },
       });
-    }, []);
+      
     return (
       <section>
         <div className="text-center my-16 ">
