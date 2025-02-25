@@ -14,7 +14,7 @@ const OurTutors = () => {
     },[])
     return (
         <div>
-            <h2 className='text-5xl font-semibold text-center font-Cinzel'>Our Tutuors</h2>
+            <h2 className='md:text-5xl text-3xl font-semibold text-center font-Cinzel'>Our Tutuors</h2>
 
             <div className='my-16 '>
                <Marquee className='mr-8'>

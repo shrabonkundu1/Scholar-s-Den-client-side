@@ -26,6 +26,8 @@ import UpdateMaterial from "../Pages/Dashboard/Tutor/UpdateMaterial";
 import BookedSessionDetails from "../Pages/Dashboard/User/BookedSessionDetails";
 import ViewStudyMaterials from "../Pages/Dashboard/User/ViewStudyMaterials";
 import ManageApprovedSessions from "../Pages/Dashboard/Admin/ManageApprovedSessions";
+import AdminRoute from "./AdminRoute";
+import TutorRoute from "./TutorRoute";
 
   export const router = createBrowserRouter([
     {
@@ -56,54 +58,54 @@ import ManageApprovedSessions from "../Pages/Dashboard/Admin/ManageApprovedSessi
     },
     {
       path: "dashboard",
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
       children: [
         // Only Admin routes:
         {
           path: "adminHome",
-          element: <AdminHome></AdminHome>,
+          element: <AdminRoute> <AdminHome></AdminHome></AdminRoute>,
         },
         {
           path: "users",
-          element: <AllUsers></AllUsers>,
+          element: <AdminRoute><AllUsers></AllUsers></AdminRoute>,
         },
         {
           path: "manageMaterials",
-          element: <ManageMaterials></ManageMaterials>,
+          element: <AdminRoute><ManageMaterials></ManageMaterials></AdminRoute>,
         },
         {
           path: "manageSessions",
-          element: <ManageSessions></ManageSessions>,
+          element: <AdminRoute><ManageSessions></ManageSessions></AdminRoute>,
         },
         {
           path: "manageApprovedSessions",
-          element: <ManageApprovedSessions></ManageApprovedSessions>,
+          element: <AdminRoute><ManageApprovedSessions></ManageApprovedSessions></AdminRoute>,
         },
 
         // Tutor routes:
         {
           path: "addMaterials",
-          element: <AddMaterials></AddMaterials>
+          element:<TutorRoute> <AddMaterials></AddMaterials></TutorRoute>
         },
         {
           path: "updateMaterial/:id",
-          element: <UpdateMaterial></UpdateMaterial>
+          element: <TutorRoute><UpdateMaterial></UpdateMaterial></TutorRoute>
         },
         {
           path: "tutorHome",
-          element: <TutorHome></TutorHome>
+          element: <TutorRoute><TutorHome></TutorHome></TutorRoute>
         },
         {
           path: "viewMaterials",
-          element: <ViewMaterials></ViewMaterials>,
+          element: <TutorRoute><ViewMaterials></ViewMaterials></TutorRoute>,
         },
         {
           path: "createSession",
-          element: <CreateSessions></CreateSessions>
+          element: <TutorRoute><CreateSessions></CreateSessions></TutorRoute>
         },
         {
           path: "viewSessions",
-          element: <ViewSessions></ViewSessions>
+          element: <TutorRoute><ViewSessions></ViewSessions></TutorRoute>
         },
 
         // users routes:

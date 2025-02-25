@@ -16,17 +16,17 @@ const SessionDetails = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axiosPublic.get("/users").then((res) => {
+    axiosSecure.get("/users").then((res) => {
       setUsers(res.data);
     });
   }, []);
 
   useEffect(() => {
-    axiosPublic.get(`/studySessions/${id}`).then((res) => {
+    axiosSecure.get(`/studySessions/${id}`).then((res) => {
       setSessions(res.data);
     });
 
-    axiosPublic
+    axiosSecure
       .get(`/reviews`)
       .then((res) => {
         if (Array.isArray(res.data)) {
@@ -47,7 +47,7 @@ const SessionDetails = () => {
         console.error("Error fetching reviews:", error);
         setReviews([]);
       });
-  }, [id, axiosPublic]);
+  }, [id, axiosSecure]);
 
   useEffect(() => {
     if (sessions?._id && user) {

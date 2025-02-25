@@ -160,6 +160,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ViewSessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -193,7 +194,13 @@ const ViewSessions = () => {
     axiosSecure
       .patch(`/studySessions/resend/${sessionId}`)
       .then((response) => {
-        toast.success(response.data.message);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Resend this session successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
         setSessions((prevSessions) =>
           prevSessions.map((session) =>
             session._id === sessionId

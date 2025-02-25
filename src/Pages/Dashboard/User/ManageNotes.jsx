@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageNotes = () => {
     const { user } = useAuth();
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [notes, setNotes] = useState([]);
     const [editNote, setEditNote] = useState(null);
 
     useEffect(() => {
         if (user?.email) {
-            axiosPublic.get(`/notes/${user.email}`)
+            axiosSecure.get(`/notes/${user.email}`)
                 .then(res => setNotes(res.data))
                 .catch(err => console.error(err));
         }
@@ -28,7 +28,7 @@ const ManageNotes = () => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axiosPublic.delete(`/notes/${id}`);
+                await axiosSecure.delete(`/notes/${id}`);
                 setNotes(notes.filter(note => note._id !== id));
                 Swal.fire({
                     title: "Deleted!",
@@ -42,7 +42,7 @@ const ManageNotes = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const { title, description } = e.target;
-        await axiosPublic.patch(`/notes/${editNote._id}`, {
+        await axiosSecure.patch(`/notes/${editNote._id}`, {
             title: title.value,
             description: description.value
         });

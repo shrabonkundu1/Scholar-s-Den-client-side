@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import Banner from './Banner';
 import StudySession from './StudySession';
 import OurTutors from './OurTutors';
+import ContactUs from './ContactUs';
+import StudentsReviews from './StudentsReviews';
 
 const Home = () => {
     return (
@@ -21,6 +23,14 @@ const Home = () => {
             <div className='my-24'>
                 <OurTutors></OurTutors>
             </div>
+            
+            <div className='my-24'>
+                <StudentsReviews></StudentsReviews>
+            </div>
+            <div className='my-24'>
+                <ContactUs></ContactUs>
+            </div>
+            
         </div>
     );
 };
