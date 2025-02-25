@@ -24,7 +24,6 @@ const BookedSessionDetails = () => {
         sessionDuration,
         status,
       } = session;
-  console.log(session)
   const {
     register,
     handleSubmit,

@@ -10,7 +10,6 @@ const ViewStudyMaterials = () => {
     const axiosPublic = useAxiosPublic();
 
     useEffect(() => {
-        console.log("Fetching materials for session:", id); 
 
         if (!id) {
             console.error("Session ID is undefined!");
@@ -20,7 +19,6 @@ const ViewStudyMaterials = () => {
         axiosPublic
             .get(`/bookStudyMaterials/${id}`)
             .then((res) => {
-                console.log("Materials Fetched:", res.data); 
                 setMaterials(res.data);
             })
             .catch((error) => console.error("Error fetching materials:", error));

@@ -11,7 +11,6 @@ const ViewMaterials = () => {
   const [loading,setLoading] = useState(true)
   const [materials, setMaterials] = useState([]);
   const axiosSecure = useAxiosSecure();
-console.log(materials)
   useEffect(() => {
     if (!user?.email) return;
     axiosSecure.get(`/materials/${user.email}`).then((res) => {

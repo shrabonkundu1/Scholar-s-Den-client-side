@@ -19,7 +19,6 @@ const Notes = () => {
             showConfirmButton: false,
             timer: 1500
           });
-        console.log(response.data.message)
         reset();
       } catch (error) {
         alert("Note not save!");

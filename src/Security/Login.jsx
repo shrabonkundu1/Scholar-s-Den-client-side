@@ -32,7 +32,6 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
 
     try {
       const result = await signInUser(email, password); 
@@ -43,7 +42,6 @@ const Login = () => {
         draggable: true
       });
       navigate(from, {replace: true})
-      console.log(user);
     } catch (error) {
       console.error("Login Error:", error);
     }

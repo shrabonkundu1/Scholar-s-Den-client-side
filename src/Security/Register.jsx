@@ -23,13 +23,10 @@ const Register = () => {
     
       const onSubmit = async(data) => {
         try {
-          console.log(data);
           const result = await createUser(data.email, data.password);
           const user = result.user;
-          console.log(user);
           updateUserProfile(data.name,data.photoUrl)
           .then(() => {
-            console.log('user Profile info updated')
             // user data post database:
             const userInfo = {
               name : data.name,
@@ -39,9 +36,7 @@ const Register = () => {
             }
             axiosPublic.post('/users',userInfo)
             .then(res => {
-              console.log(res.data)
               if(res.data.insertedId){
-                console.log('user added to the database successfully')
                 reset();
                 Swal.fire({
                         title: "User created Successfully!",

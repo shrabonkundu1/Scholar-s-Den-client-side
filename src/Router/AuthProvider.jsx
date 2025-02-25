@@ -1,35 +1,3 @@
-// import React, { createContext, useEffect, useState } from 'react';
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
-// import { app } from '../Firebase/Firebase.config';
-// export const AuthContext = createContext(null);
-// const auth = getAuth(app);
-// const AuthProvider = ({children}) => {
-
-//     const [user,setUser] = useState([]);
-//     const [loading, setLoading] = useState(true);
-
-//     useEffect(() => {
-//         const unSubscribe  =  onAuthStateChanged(auth,currentUser => {
-//             setUser(currentUser);
-//             console.log(currentUser);
-//             setLoading(false);
-//         });
-//         return () => {
-//             return unSubscribe()
-//         }
-//     },[])
-//     const authInfo = {
-//         user,
-//         loading
-//     }
-//     return (
-//         <AuthContext.Provider value={authInfo}>
-//             {children}
-//         </AuthContext.Provider>
-//     );
-// };
-
-// export default AuthProvider;
 
 import { createContext, useEffect, useState } from "react";
 import {
@@ -114,16 +82,7 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  // useEffect(() => {
-  //   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //     console.log(currentUser);
-  //     setLoading(false);
-  //   });
-  //   return () => {
-  //     return unSubscribe();
-  //   };
-  // }, []);
+ 
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -134,10 +93,8 @@ const AuthProvider = ({ children }) => {
           axiosPublic
             .post("/jwt", userInfo)
             .then((res) => {
-              // console.log("JWT Response:", res.data);
               if (res.data.token) {
                 localStorage.setItem("access-token", res.data.token)
-                // console.log("Token saved in localStorage:", res.data.token); 
                 setLoading(false);
               }
             })
@@ -148,7 +105,6 @@ const AuthProvider = ({ children }) => {
         }
 
        
-        // console.log("current user", currentUser);
       });
 
       return () => unsubscribe();

@@ -6,10 +6,8 @@ import useAuth from "../../../Hooks/useAuth";
 const BookSession = () => {
     const {user} = useAuth()
     const [sessions, setSessions] = useState([]);
-    console.log(sessions)
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic()
-    console.log(sessions)
     const studentEmail = user?.email;
     useEffect(() => {
     axiosPublic

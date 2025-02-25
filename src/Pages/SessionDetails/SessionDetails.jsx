@@ -29,7 +29,6 @@ const SessionDetails = () => {
     axiosPublic
       .get(`/reviews`)
       .then((res) => {
-        console.log("Reviews Response:", res.data);
         if (Array.isArray(res.data)) {
           const filteredReviews = res.data.filter(
             (review) => review.sessionId === id
@@ -103,8 +102,6 @@ const SessionDetails = () => {
   if (loading || !sessions) {
     return <p>Loading...</p>;
   }
-
-  console.log(reviews);
   const data = sessions.session;
   const {
     sessionTitle,
