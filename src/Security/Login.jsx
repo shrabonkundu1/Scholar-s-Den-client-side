@@ -16,6 +16,7 @@ const Login = () => {
 
   const {signInUser} = useAuth() ;
   const [showPassword, setShowPassword] = useState(false);
+  const [error,setError] = useState('')
   const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,6 +30,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError('')
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -44,6 +46,7 @@ const Login = () => {
       navigate(from, {replace: true})
     } catch (error) {
       console.error("Login Error:", error);
+      setError("Invalid email or password!")
     }
   };
 
@@ -117,6 +120,8 @@ const Login = () => {
                   </a>
                 </label>
               </div>
+              {error && <p className="text-red-500">{error}</p>} 
+              
               <div className="form-control bg-transparent">
                 <label className="label bg-transparent">
                   <LoadCanvasTemplate />
