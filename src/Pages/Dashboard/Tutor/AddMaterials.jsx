@@ -9,12 +9,11 @@ const AddMaterials = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  const [loading, setLoading] = useState(false); // 🟢 লোডিং স্টেট
+  const [loading, setLoading] = useState(false); 
 
   // get session data using location state
   const session = location.state || null;
 
-  // 🛑 If session is missing, navigate to "viewAllSession"
   useEffect(() => {
     if (!session) {
       navigate("/dashboard/viewSessions");

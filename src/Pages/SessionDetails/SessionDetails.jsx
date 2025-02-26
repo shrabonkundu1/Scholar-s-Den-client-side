@@ -1,6 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
@@ -14,6 +15,7 @@ const SessionDetails = () => {
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosSecure.get("/users").then((res) => {
@@ -50,15 +52,17 @@ const SessionDetails = () => {
   }, [id, axiosSecure]);
 
   useEffect(() => {
-    if (sessions?._id && user) {
+    if (sessions?.session?._id && user) {
       checkBookedSession();
     }
   }, [sessions, user]);
 
   const checkBookedSession = async () => {
+    if (!user || !sessions?.session?._id) return;
+
     try {
       const { data } = await axiosSecure.get(
-        `/checkBookedSession?studentEmail=${user.email}&sessionId=${sessions._id}`
+        `/checkBookedSession?studentEmail=${user.email}&sessionId=${sessions.session._id}`
       );
       setIsBooked(data.isBooked);
     } catch (error) {
@@ -70,38 +74,40 @@ const SessionDetails = () => {
     if (!user) {
       return alert("Please log in first!");
     }
-
-    const bookingData = {
-      studentEmail: user.email,
-      sessionId: sessions.session._id,
-      sessionTitle: sessions.session.sessionTitle,
-      tutorName: sessions.session.tutorName,
-      sessionDuration: sessions.session.sessionDuration,
-    };
-
-    try {
-      const { data } = await axiosPublic.post("/bookedSessions", bookingData);
-
-      if (data.insertedId) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Session booked successfully!",
-          showConfirmButton: false,
-          timer: 1500,
+  
+ 
+      try {
+        const { data } = await axiosPublic.post("/bookedSessions", {
+          studentEmail: user.email,
+          sessionId: sessions.session._id,
+          sessionTitle: sessions.session.sessionTitle,
+          tutorName: sessions.session.tutorName,
+          sessionDuration: sessions.session.sessionDuration,
         });
-        setIsBooked(true);
-      } else {
-        alert(data.message);
+  
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Session booked successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+  
+          setIsBooked(true);
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error("Error booking session:", error);
       }
-    } catch (error) {
-      console.error("Error booking session:", error);
-    }
+    
   };
 
   if (loading || !sessions) {
     return <p>Loading...</p>;
   }
+
   const data = sessions.session;
   const {
     sessionTitle,
@@ -113,8 +119,7 @@ const SessionDetails = () => {
     registrationEndDate,
     sessionDuration,
     status,
-    price,
-    amount
+    amount,
   } = data;
 
   const currentUser = users.find((u) => u.email === user?.email) || {};
@@ -126,68 +131,75 @@ const SessionDetails = () => {
 
   return (
     <div className="py-16">
-      <h2 className="text-4xl py-16 font-semibold font-Cinzel text-center">
+      <h2 className="md:text-4xl text-3xl py-16 font-semibold font-Cinzel text-center">
         {sessionTitle}
       </h2>
-      <div className="w-3/4 mx-auto text-xl font-medium space-y-6">
+      <div className="md:w-3/4 mx-5 md:mx-auto md:text-xl font-medium space-y-6">
         <p>
-          Description : <span className="font-light">{sessionDescription}</span>
+          Description: <span className="font-light">{sessionDescription}</span>
         </p>
-        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
-        <h2>Title : {sessionTitle}</h2>
-        
-        <p>
-          Session Status : <span className="font-light">{status}</span>
-        </p>
-      </div>
-        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
+        <div className="flex flex-col md:flex-row justify-between md:items-center w-4/5">
+          <h2>Title: {sessionTitle}</h2>
           <p>
-            Tutor : <span>{tutorName}</span>
+            Session Status: <span className="font-light">{status}</span>
+          </p>
+        </div>
+        <div className="flex flex-col md:flex-row justify-between md:items-center w-4/5">
+          <p>
+            Tutor: <span>{tutorName}</span>
           </p>
           <p>
-            Session Duration :{" "}
+            Session Duration:{" "}
             <span className="font-light">{sessionDuration}</span>
           </p>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
+        <div className="flex flex-col md:flex-row justify-between md:items-center w-4/5">
           <p>
-            Registration Starts Date :{" "}
+            Registration Starts:{" "}
             <span className="font-light">{registrationStartDate}</span>
           </p>
           <p>
-            Registration Ends Date :{" "}
+            Registration Ends:{" "}
             <span className="font-light">{registrationEndDate}</span>
           </p>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
+        <div className="flex flex-col md:flex-row justify-between md:items-center w-4/5">
           <p>
-            Class Starts : <span className="font-light">{classStartTime}</span>
+            Class Starts: <span className="font-light">{classStartTime}</span>
           </p>
           <p>
-            Class Ends : <span className="font-light">{classEndDate}</span>
+            Class Ends: <span className="font-light">{classEndDate}</span>
           </p>
         </div>
-       
-        <div className="flex flex-col md:flex-row justify-between items-center w-4/5">
+
+        <div className="flex flex-col md:flex-row justify-between md:items-center w-4/5">
           <p>
-            Registration Fee :{" "}
-            <span className="font-light">${amount}</span>
+            Registration Fee: <span className="font-light">${amount}</span>
           </p>
-          <button
-            onClick={handleBookSession}
-            disabled={isDisabled || isBooked}
-            className={`mt-4 px-4 py-2 rounded text-[16px] ${
-              isDisabled || isBooked
-                ? "bg-gray-400 cursor-not-allowed text-white"
-                : "bg-gradient-to-r from-[#2ec4b6] to-[#6feccb] text-black"
-            }`}
-          >
-            {isRegistrationClosed
-              ? "Registration Closed"
-              : isBooked
-              ? "Session Booked"
-              : "Book Now"}
-          </button>
+          {status === "approved" ? (
+            <button
+              onClick={handleBookSession}
+              disabled={isDisabled || isBooked}
+              className={`mt-4 px-4 py-2 rounded text-[16px] ${
+                isDisabled || isBooked
+                  ? "bg-gray-400 cursor-not-allowed text-white"
+                  : "bg-gradient-to-r from-[#2ec4b6] to-[#6feccb] text-black"
+              }`}
+            >
+              {isRegistrationClosed
+                ? "Registration Closed"
+                : isBooked
+                ? "Session Booked"
+                : "Book Now"}
+            </button>
+          ) : (
+            <button
+              disabled
+              className="btn bg-gray-400 cursor-not-allowed text-white"
+            >
+              Book Now
+            </button>
+          )}
         </div>
 
         <div className="pt-16">

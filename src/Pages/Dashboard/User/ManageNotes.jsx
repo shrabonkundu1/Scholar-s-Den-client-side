@@ -52,8 +52,8 @@ const ManageNotes = () => {
 
     return (
        <div className="">
-                    <h2 className="text-4xl font-semibold font-Cinzel text-center my-16">Manage Your Notes</h2>
-         <div className="max-w-3xl mx-auto p-6 bg-green-300 shadow-lg rounded-lg my-16">
+                    <h2 className="md:text-4xl text-3xl font-semibold font-Cinzel text-center my-16">Manage Your Notes</h2>
+         <div className="max-w-3xl mx-5 md:mx-auto p-6 bg-green-300 shadow-lg rounded-lg my-16">
             {notes.length === 0 ? <p>No notes found.</p> : (
                 <ul className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5">
                     {notes.map(note => (

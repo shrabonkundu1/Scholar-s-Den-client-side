@@ -90,6 +90,7 @@ const Navbar = () => {
                 className="w-10 h-10 rounded-full"
               />
               <button
+              onClick={handleLogout}
                 className="text-sm text-[#02c39a] font-bold flex items-center gap-1"
               >
                 <TbLogout2 size={19} />
@@ -101,7 +102,7 @@ const Navbar = () => {
               <Link to="/login" className={getLinkStyle("/login")}>
                 <CgLogIn size={19} /> Login
               </Link>
-              <Link to="/signUp" className={getLinkStyle("/signUp")}>
+              <Link to="/register" className={getLinkStyle("/register")}>
                 <SiSecurityscorecard size={19} /> Sign Up
               </Link>
             </div>

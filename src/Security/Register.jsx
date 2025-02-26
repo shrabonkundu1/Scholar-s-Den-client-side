@@ -7,6 +7,8 @@ import useAuth from '../Hooks/useAuth';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import SocialLogin from './SocialLogin';
+import lottie from '../lottie/Login.json'
+import Lottie from 'react-lottie';
 
 const Register = () => {
     const navigate  = useNavigate();
@@ -20,7 +22,15 @@ const Register = () => {
         formState: { errors },
       } = useForm();
       
-    
+      const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: lottie,
+        rendererSettings: {
+          preserveAspectRatio: "xMidYMid slice",
+        },
+      };
+      
       const onSubmit = async(data) => {
         try {
           const result = await createUser(data.email, data.password);
@@ -63,11 +73,7 @@ const Register = () => {
       <div className="hero bg-gradient-to-r from-[#a8e6f4] via-[#d4f0f5] to-blue-100 min-h-screen py-24">
         <div className="hero-content flex-col flex md:flex-row md:w-8/12 mx-auto">
           <div className="text-center lg:text-left">
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-              a id nisi.
-            </p>
+          <Lottie options={defaultOptions} height={400} width={380} />
           </div>
           <div className="card  bg-gradient-to-r from-[#2ec4b5bb] to-[#6feccb]  w-full max-w-md shrink-0 shadow-2xl">
             <h1 className="text-4xl pt-10 font-bold p-5 text-center font-Cinzel">

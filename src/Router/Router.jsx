@@ -28,11 +28,14 @@ import ViewStudyMaterials from "../Pages/Dashboard/User/ViewStudyMaterials";
 import ManageApprovedSessions from "../Pages/Dashboard/Admin/ManageApprovedSessions";
 import AdminRoute from "./AdminRoute";
 import TutorRoute from "./TutorRoute";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import ErrorElement from "../Shared/ErrorElement";
 
   export const router = createBrowserRouter([
     {
       path: "",
       element: <MainLayouts></MainLayouts>,
+      errorElement: <ErrorElement></ErrorElement>,
       children: [
         {
             path: "/",
@@ -120,6 +123,10 @@ import TutorRoute from "./TutorRoute";
         {
           path: "manageNotes",
           element: <ManageNotes></ManageNotes>
+        },
+        {
+          path: "payment/:id",
+          element: <Payment></Payment>
         },
         {
           path: "bookedSessions/:email",

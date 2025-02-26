@@ -38,7 +38,7 @@ const AllSession = () => {
 
   return (
     <div>
-      <h2 className="text-5xl font-semibold text-center font-Cinzel pt-28">
+    <h2 className="md:text-5xl text-3xl font-semibold text-center font-Cinzel pt-28">
         All Study Sessions
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:w-4/5 md:w-11/12 w-[95%] mx-auto my-16">

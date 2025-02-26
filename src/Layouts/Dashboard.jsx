@@ -8,7 +8,7 @@ import {
   FaStreetView,
 } from "react-icons/fa";
 import { IoCloseSharp, IoCreateSharp } from "react-icons/io5";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import { TbUpload } from "react-icons/tb";
 import { RiSearchEyeLine } from "react-icons/ri";
 import UseAdmin from "../Hooks/UseAdmin";

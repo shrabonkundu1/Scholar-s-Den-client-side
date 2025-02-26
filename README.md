@@ -12,7 +12,7 @@ Scholar's Den 📚 aims to simplify collaborative learning by connecting student
 
 ## 🔔Admin Document
 - Admin email - learners@gmail.com
-- Admin pass - 123learners@?
+- Admin pass - 123learners@
 
 
 

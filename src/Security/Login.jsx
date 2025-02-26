@@ -76,7 +76,7 @@ const Login = () => {
       <div className="hero py-24 bg-gradient-to-r from-[#a8e6f4] via-[#d4f0f5] to-blue-100 min-h-screen">
         <div className="hero-content flex-col flex md:flex-row md:w-8/12 mx-auto">
           <div className="text-center lg:text-left">
-            <Lottie options={options} className="w-[800px] h-[1000px]" />
+            <Lottie options={options} height={400} width={380} />
           </div>
           <div className="card bg-gradient-to-r from-[#2ec4b5bb] to-[#6feccb]  w-full  max-w-md shrink-0 shadow-2xl">
             <h1 className="text-4xl pt-10 font-bold p-5 text-center font-Cinzel">

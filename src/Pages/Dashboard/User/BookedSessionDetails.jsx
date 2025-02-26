@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth"; 
 import Swal from "sweetalert2"; 
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const BookedSessionDetails = () => {
   const { id } = useParams();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); 
 
   const [session, setSession] = useState({});
@@ -33,11 +33,11 @@ const BookedSessionDetails = () => {
 
 
   useEffect(() => {
-    axiosPublic
+    axiosSecure
       .get(`/bookStudySessions/${id}`)
       .then((res) => setSession(res.data))
       .catch((error) => console.error("Error fetching session details:", error));
-  }, [id, axiosPublic]);
+  }, [id, axiosSecure]);
 
   const onSubmit = async (data) => {
     const newReview = {
@@ -48,7 +48,7 @@ const BookedSessionDetails = () => {
     };
 
     try {
-      const response = await axiosPublic.post("/reviews", newReview);
+      const response = await axiosSecure.post("/reviews", newReview);
       if (response.data.insertedId) {
         Swal.fire({
           icon: "success",
